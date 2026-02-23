@@ -2,7 +2,6 @@
 # Full control over the Events GUI layout and appearance.
 #
 # INVENTORY LAYOUT (54 slots, 6 rows of 9):
-#   Slots are numbered 0–53, left to right, top to bottom.
 #   Row 1:  0   1   2   3   4   5   6   7   8
 #   Row 2:  9  10  11  12  13  14  15  16  17
 #   Row 3: 18  19  20  21  22  23  24  25  26
@@ -10,57 +9,38 @@
 #   Row 5: 36  37  38  39  40  41  42  43  44
 #   Row 6: 45  46  47  48  49  50  51  52  53
 #
-# COLOR CODES: Use & codes (&a, &c, &l, etc.) or hex &#RRGGBB / <#RRGGBB>
+# Event slots are fixed at 10-16, 19-25, 28-34 (21 per page).
+# Slot 45 = Previous page  |  Slot 49 = Close  |  Slot 53 = Next page
+# Slot  4 = Page indicator (only shown when there is more than 1 page)
 
 # -----------------------------------------------------------------------
 # TITLE shown at the top of the inventory
+# Page number is appended automatically when there is more than one page.
 # -----------------------------------------------------------------------
 title: "&8&l✦ &8Events ➠ Overview"
 
 # -----------------------------------------------------------------------
 # FILLER ITEMS
-# A list of filler item definitions. Each entry fills a set of slots with
-# the same item. You can define multiple entries with different materials.
-#
-# slots supports:
-#   - Individual slot numbers:  5
-#   - Ranges (inclusive):       0-8
-#   - Any mix of both
-#
-# Event items and static-slots always overwrite filler slots.
-# Use material AIR to leave specific slots empty.
+# Fills background slots. Event, static, and nav slots overwrite these.
 # -----------------------------------------------------------------------
 filler-items:
   - material: GRAY_STAINED_GLASS_PANE
     name: " "
     slots:
-      - 0-9
-      - 10
-      - 17
-      - 18
-      - 26
-      - 27
-      - 35
-      - 36-44
-      - 45-48
-      - 50-53
-
-  - material: GRAY_DYE
-    name: "&7???"
-    slots:
-      - 29-34
+      - 0-8       # top row
+      - 9         # left edge row 2
+      - 17        # right edge row 2
+      - 18        # left edge row 3
+      - 26        # right edge row 3
+      - 27        # left edge row 4
+      - 35        # right edge row 4
+      - 36-44     # row 5
+      - 45-53     # bottom row (nav slots overwrite 45, 49, 53)
 
 # -----------------------------------------------------------------------
 # STATIC SLOTS - fixed items always shown at specific positions.
-# Event items (from event-slots) overwrite any static item in the same
-# slot, so keep static items out of your event-slots positions.
-#
-# Each entry:
-#   material: MATERIAL_NAME
-#   name: "..."
-#   lore:             (optional)
-#     - "line 1"
-#   glow: true/false  (optional, adds enchant glow)
+# Avoid slots 45, 49, 53 (used by navigation) and 10-16, 19-25, 28-34
+# (used by events).
 # -----------------------------------------------------------------------
 static-slots:
 
@@ -71,42 +51,42 @@ static-slots:
       - "&7ᴄʟɪᴄᴋ ᴛᴏ ᴄʟᴏꜱᴇ ᴛʜɪꜱ ᴍᴇɴᴜ."
 
 # -----------------------------------------------------------------------
-# EVENT SLOTS - ordered list of slots where events are placed.
-# Events fill these slots in registration order.
+# NAVIGATION BUTTONS
+# Slot 45 = Previous page button (hidden / replaced by filler on page 1)
+# Slot 53 = Next page button     (hidden / replaced by filler on last page)
 # -----------------------------------------------------------------------
-event-slots:
-  - 10
-  - 11
-  - 12
-  - 13
-  - 14
-  - 15
-  - 16
-  - 19
-  - 20
-  - 21
-  - 22
-  - 23
-  - 24
-  - 25
-  - 28
-  - 29
-  - 30
-  - 31
-  - 32
-  - 33
-  - 34
+nav-prev-material: ARROW
+nav-prev-name: "&e&l← ᴘʀᴇᴠɪᴏᴜꜱ"
+nav-prev-lore:
+  - "&7ᴄʟɪᴄᴋ ᴛᴏ ɢᴏ ᴛᴏ ᴛʜᴇ ᴘʀᴇᴠɪᴏᴜꜱ ᴘᴀɢᴇ."
+
+nav-next-material: ARROW
+nav-next-name: "&e&lɴᴇxᴛ →"
+nav-next-lore:
+  - "&7ᴄʟɪᴄᴋ ᴛᴏ ɢᴏ ᴛᴏ ᴛʜᴇ ɴᴇxᴛ ᴘᴀɢᴇ."
+
+# -----------------------------------------------------------------------
+# PAGE INDICATOR  (slot 4, top-centre row)
+# Only shown when there is more than one page.
+# Placeholders: {page}, {total}
+# -----------------------------------------------------------------------
+page-indicator-material: BOOK
+page-indicator-name: "&7ᴘᴀɢᴇ &e{page} &7/ &e{total}"
+page-indicator-lore:
+  - "&8ᴜꜱᴇ ᴛʜᴇ ᴀʀʀᴏᴡꜱ ʙᴇʟᴏᴡ ᴛᴏ ɴᴀᴠɪɢᴀᴛᴇ."
+
+# -----------------------------------------------------------------------
+# EMPTY SLOT FILLER
+# Shown in event slots that have no event on the current page.
+# -----------------------------------------------------------------------
+empty-slot-material: GRAY_DYE
+empty-slot-name: "&7???"
+empty-slot-lore: []
 
 # -----------------------------------------------------------------------
 # EVENT ITEM LORE TEMPLATE
-# Defines the lore for every event item in the GUI.
-#
-# Placeholders:
-#   {description_lines} - expands to all lines from events.yml description
-#   {duration}          - formatted duration, e.g. "5m" or "5m 30s"
-#
-# {description_lines} expands in-place: one line per description entry.
-# All other lines are shown as-is (with {duration} replaced where present).
+# {description_lines} expands to all lines from events.yml description.
+# {duration} is replaced with the formatted duration string.
 # -----------------------------------------------------------------------
 event-lore-template:
   - "{description_lines}"
@@ -114,9 +94,7 @@ event-lore-template:
   - "&8&l⏱ &7ᴅᴜʀᴀᴛɪᴏɴ: &e{duration}"
 
 # -----------------------------------------------------------------------
-# ACTIVE EVENT BADGE
-# Lines appended to an event item's lore when it is currently running.
-# Inserted before the last separator line, or at the end if none exists.
+# ACTIVE EVENT BADGE  (appended to lore when the event is running)
 # -----------------------------------------------------------------------
 active-event-badge:
   - ""
@@ -124,28 +102,35 @@ active-event-badge:
 
 # -----------------------------------------------------------------------
 # ACTIVE EVENT GLOW
-# Adds an enchantment glow to the currently active event's item.
 # -----------------------------------------------------------------------
 active-event-glow: true
 
 # -----------------------------------------------------------------------
-# EVENT ICONS
-# Maps event IDs to their GUI item material.
-# Falls back to PAPER for any event not listed here.
+# EVENT ICONS  (maps event IDs to their GUI item material)
+# Falls back to PAPER for any event not listed.
 # -----------------------------------------------------------------------
 event-icons:
-  meteor_shower:   FIRE_CHARGE
-  ore_frenzy:      DIAMOND
-  tornado_trouble: FEATHER
-  blood_moon:      REDSTONE
-  gravity_glitch:  END_CRYSTAL
-  lightning_storm: LIGHTNING_ROD
-  speed_surge:     SUGAR
-  freezing_winds:  SNOWBALL
-  creeper_panic:   CREEPER_HEAD
-  xp_rain:         EXPERIENCE_BOTTLE
-  golden_touch:    GOLD_INGOT
-  healing_aura:    GLISTERING_MELON_SLICE
-  toxic_wasteland: SLIME_BALL
-  lucky_day:       EMERALD
-  earthquake:      STONE
+  meteor_shower:     FIRE_CHARGE
+  ore_frenzy:        DIAMOND
+  tornado_trouble:   FEATHER
+  blood_moon:        REDSTONE
+  gravity_glitch:    END_CRYSTAL
+  lightning_storm:   LIGHTNING_ROD
+  speed_surge:       SUGAR
+  freezing_winds:    SNOWBALL
+  creeper_panic:     CREEPER_HEAD
+  xp_rain:           EXPERIENCE_BOTTLE
+  golden_touch:      GOLD_INGOT
+  healing_aura:      GLISTERING_MELON_SLICE
+  toxic_wasteland:   SLIME_BALL
+  lucky_day:         EMERALD
+  earthquake:        STONE
+  ender_disturbance: ENDER_EYE
+  rich_soil:         HAY_BLOCK
+  slime_invasion:    LIME_DYE
+  echoing_darkness:  SCULK_SHRIEKER
+  treasure_spark:    AMETHYST_SHARD
+  bunny_hop:         RABBIT_FOOT
+  scorching_sun:     BLAZE_POWDER
+  mob_blessing:      WHEAT
+  emerald_fever:     EMERALD_BLOCK

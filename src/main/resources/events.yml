@@ -192,7 +192,7 @@ events:
     weight: 9
     start-sound: BLOCK_AMETHYST_BLOCK_CHIME
     end-sound: BLOCK_AMETHYST_BLOCK_FALL
-    gold-nugget-chance: 0.5     # 0.0–1.0 per kill
+    gold-nugget-chance: 0.5
     gold-ingot-chance: 0.15
     nugget-min: 1
     nugget-max: 4
@@ -212,8 +212,8 @@ events:
     weight: 9
     start-sound: ENTITY_PLAYER_LEVELUP
     end-sound: ENTITY_EXPERIENCE_ORB_PICKUP
-    heal-interval-ticks: 300    # 15 seconds
-    heal-amount: 2.0            # half-hearts (2 = 1 full heart)
+    heal-interval-ticks: 300
+    heal-amount: 2.0
 
   toxic_wasteland:
     enabled: true
@@ -228,9 +228,9 @@ events:
     weight: 9
     start-sound: ENTITY_WITCH_AMBIENT
     end-sound: ENTITY_WITCH_DEATH
-    poison-interval-min: 100    # min ticks between poison procs
+    poison-interval-min: 100
     poison-interval-max: 200
-    poison-duration-ticks: 40   # 2 seconds
+    poison-duration-ticks: 40
 
   lucky_day:
     enabled: true
@@ -248,11 +248,11 @@ events:
     weight: 10
     start-sound: ENTITY_PLAYER_LEVELUP
     end-sound: ENTITY_FIREWORK_ROCKET_TWINKLE
-    mine-bonus-chance: 0.25     # 0.0–1.0
+    mine-bonus-chance: 0.25
     mob-loot-chance: 0.30
     enchant-effect-chance: 0.40
-    enchant-effect-min-ticks: 600   # 30s
-    enchant-effect-max-ticks: 1200  # 60s
+    enchant-effect-min-ticks: 600
+    enchant-effect-max-ticks: 1200
 
   earthquake:
     enabled: true
@@ -268,6 +268,161 @@ events:
     weight: 8
     start-sound: ENTITY_RAVAGER_ROAR
     end-sound: ENTITY_RAVAGER_CELEBRATE
-    quake-interval-ticks: 400   # 20 seconds
-    nausea-duration-ticks: 60   # 3 seconds
+    quake-interval-ticks: 400
+    nausea-duration-ticks: 60
     knockback-strength: 0.4
+
+  ender_disturbance:
+    enabled: true
+    display-name: "&5&l👁 ᴇɴᴅᴇʀ ᴅɪꜱᴛᴜʀʙᴀɴᴄᴇ"
+    short-description: "&7ᴇɴᴅᴇʀᴍᴇɴ ɢᴏ ʙᴇʀꜱᴇʀᴋ — ᴛᴇʟᴇᴘᴏʀᴛɪɴɢ ᴡɪʟᴅʟʏ ᴀʟʟ ᴀʀᴏᴜɴᴅ!"
+    description:
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fEndermen teleport frantically around the world."
+      - "&7&l| &fRandom teleport sounds echo even without Endermen nearby."
+    duration: 300
+    weight: 8
+    start-sound: ENTITY_ENDERMAN_SCREAM
+    end-sound: ENTITY_ENDERMAN_DEATH
+    sound-interval-min: 100
+    sound-interval-max: 600
+
+  rich_soil:
+    enabled: true
+    display-name: "&2&l🌱 ʀɪᴄʜ ꜱᴏɪʟ"
+    short-description: "&7ᴛʜᴇ ᴇᴀʀᴛʜ ɪꜱ ꜰᴇʀᴛɪʟᴇ — ᴄʀᴏᴘꜱ ɢʀᴏᴡ ᴛᴡɪᴄᴇ ᴀꜱ ꜰᴀꜱᴛ!"
+    description:
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fAll Crops grow 2x faster."
+    duration: 300
+    weight: 9
+    start-sound: BLOCK_COMPOSTER_FILL_SUCCESS
+    end-sound: BLOCK_COMPOSTER_EMPTY
+    extra-grow-chance: 1.0
+    particle-interval-ticks: 60
+
+  slime_invasion:
+    enabled: true
+    display-name: "&a&l🟢 ꜱʟɪᴍᴇ ɪɴᴠᴀꜱɪᴏɴ"
+    short-description: "&7ꜱʟɪᴍᴇꜱ ᴏᴏᴢᴇ ᴇᴠᴇʀʏᴡʜᴇʀᴇ — ᴀɴᴅ ᴛʜᴇʏ'ʀᴇ ʙɪɢɢᴇʀ ᴛʜᴀɴ ᴜꜱᴜᴀʟ!"
+    description:
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fSlimes spawn in all biomes, even non-swamps."
+      - "&7&l| &fSlimes are noticeably larger than normal."
+    duration: 300
+    weight: 8
+    start-sound: ENTITY_SLIME_JUMP
+    end-sound: ENTITY_SLIME_DEATH
+    spawn-interval-ticks: 100
+    spawn-radius: 20
+    max-slimes-per-player: 3
+    slime-size-min: 2
+    slime-size-max: 4
+
+  echoing_darkness:
+    enabled: true
+    display-name: "&0&l🔊 ᴇᴄʜᴏɪɴɢ ᴅᴀʀᴋɴᴇꜱꜱ"
+    short-description: "&7ᴅᴀʀᴋɴᴇꜱꜱ ᴘᴜʟꜱᴇꜱ ᴛʜʀᴏᴜɢʜ ʏᴏᴜ ᴡʜɪʟᴇ ᴅᴇᴇᴘ ꜱᴏᴜɴᴅꜱ ᴇᴄʜᴏ ɪɴ ᴛʜᴇ ᴅᴀʀᴋ!"
+    description:
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fRandom Darkness pulses hit players every 10-45s."
+    duration: 300
+    weight: 8
+    start-sound: ENTITY_WARDEN_EMERGE
+    end-sound: ENTITY_WARDEN_DIG
+    darkness-interval-min: 200
+    darkness-interval-max: 900
+    darkness-duration-ticks: 60
+    sound-interval-min: 200
+    sound-interval-max: 900
+
+  treasure_spark:
+    enabled: true
+    display-name: "&e&l✨ ᴛʀᴇᴀꜱᴜʀᴇ ꜱᴘᴀʀᴋ"
+    short-description: "&7ꜱᴏᴍᴇ ʙʟᴏᴄᴋꜱ ꜱᴘᴀʀᴋʟᴇ ᴡɪᴛʜ ᴛʀᴇᴀꜱᴜʀᴇ — ʙʀᴇᴀᴋ ᴛʜᴇᴍ ꜰᴏʀ ʟᴏᴏᴛ!"
+    description:
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fRandom blocks near you shimmer with sparkles."
+      - "&7&l| &fBreaking them drops Coal, Iron, Gold, or Emerald."
+    duration: 300
+    weight: 9
+    start-sound: ENTITY_EXPERIENCE_ORB_PICKUP
+    end-sound: BLOCK_AMETHYST_BLOCK_FALL
+    sparkle-interval-ticks: 40
+    max-sparkle-blocks: 5
+    sparkle-radius: 12
+    sparkle-lifetime-ticks: 200
+
+  bunny_hop:
+    enabled: true
+    display-name: "&b&l🐇 ʙᴜɴɴʏ ʜᴏᴘ"
+    short-description: "&7ᴊᴜᴍᴘ ʙᴏᴏꜱᴛ ɪɪ ꜰᴏʀ ᴀʟʟ — ᴄʟᴏᴜᴅꜱ ᴘᴜꜰꜰ ᴏɴ ᴇᴠᴇʀʏ ʟᴀɴᴅɪɴɢ!"
+    description:
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fAll Players receive Jump Boost II."
+    duration: 300
+    weight: 10
+    start-sound: ENTITY_RABBIT_JUMP
+    end-sound: ENTITY_RABBIT_DEATH
+    jump-amplifier: 1
+
+  scorching_sun:
+    enabled: true
+    display-name: "&#FF4400&l☀ ꜱᴄᴏʀᴄʜɪɴɢ ꜱᴜɴ"
+    short-description: "&7ᴛʜᴇ ꜱᴜɴ ʙᴜʀɴꜱ — ꜱᴛᴀʏ ɪɴ ᴛʜᴇ ꜱʜᴀᴅᴇ ᴏʀ ᴄᴀᴛᴄʜ ꜰɪʀᴇ!"
+    description:
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fStanding in direct sunlight during the day ignites you."
+      - "&7&l| &fMoving to shade extinguishes the flame."
+    duration: 300
+    weight: 8
+    start-sound: ENTITY_BLAZE_AMBIENT
+    end-sound: ENTITY_BLAZE_DEATH
+    check-interval-ticks: 20
+    fire-ticks-per-check: 40
+
+  mob_blessing:
+    enabled: true
+    display-name: "&a&l🐄 ᴍᴏʙ ʙʟᴇꜱꜱɪɴɢ"
+    short-description: "&7ᴘᴀꜱꜱɪᴠᴇ ᴍᴏʙꜱ ꜱᴘʀᴇᴀᴅ ᴀ ʜᴇᴀʟɪɴɢ ᴀᴜʀᴀ — ꜱᴛᴀʏ ᴄʟᴏꜱᴇ!"
+    description:
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fPassive Mobs (Cows, Pigs etc.) heal nearby players."
+    duration: 300
+    weight: 9
+    start-sound: ENTITY_COW_AMBIENT
+    end-sound: ENTITY_VILLAGER_CELEBRATE
+    heal-interval-ticks: 100
+    heal-amount: 1.0
+    heal-radius: 8.0
+
+  emerald_fever:
+    enabled: true
+    display-name: "&2&l💚 ᴇᴍᴇʀᴀʟᴅ ꜰᴇᴠᴇʀ"
+    short-description: "&7ᴠɪʟʟᴀɢᴇʀꜱ ᴀʀᴇ ꜰᴇᴇʟɪɴɢ ɢᴇɴᴇʀᴏᴜꜱ — ᴛʀᴀᴅᴇꜱ ᴀʀᴇ ᴄʜᴇᴀᴘᴇʀ!"
+    description:
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fVillager trade costs are halved."
+    duration: 300
+    weight: 9
+    start-sound: ENTITY_VILLAGER_TRADE
+    end-sound: ENTITY_VILLAGER_NO
+    price-discount: 0.5

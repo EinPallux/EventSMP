@@ -43,6 +43,15 @@ public class EventManager {
         register(new ToxicWastelandEvent(plugin));
         register(new LuckyDayEvent(plugin));
         register(new EarthquakeEvent(plugin));
+        register(new EnderDisturbanceEvent(plugin));
+        register(new RichSoilEvent(plugin));
+        register(new SlimeInvasionEvent(plugin));
+        register(new EchoingDarknessEvent(plugin));
+        register(new TreasureSparkEvent(plugin));
+        register(new BunnyHopEvent(plugin));
+        register(new ScorchingSunEvent(plugin));
+        register(new MobBlessingEvent(plugin));
+        register(new EmeraldFeverEvent(plugin));
     }
 
     private void register(SmpEvent event) {

@@ -24,176 +24,211 @@ import java.util.*;
 
 public class EventsGui implements Listener {
 
-    private final EventSMP plugin;
-    private final Inventory inventory;
-    private final Player viewer;
+    // Fixed event slots per page — 21 slots across 3 rows
+    private static final List<Integer> EVENT_SLOTS = List.of(
+            10, 11, 12, 13, 14, 15, 16,
+            19, 20, 21, 22, 23, 24, 25,
+            28, 29, 30, 31, 32, 33, 34
+    );
+    private static final int SLOTS_PER_PAGE = EVENT_SLOTS.size(); // 21
 
-    /** Slot of the close button, detected from static-slots at build time. */
-    private int closeButtonSlot = -1;
+    // Navigation button slots
+    private static final int SLOT_PREV   = 45;
+    private static final int SLOT_NEXT   = 53;
+    private static final int SLOT_CLOSE  = 49;
+    private static final int SLOT_INFO   = 4;  // page indicator (top-middle)
+
+    private final EventSMP plugin;
+    private final Player viewer;
+    private Inventory inventory;
+
+    /** All registered events in order */
+    private final List<SmpEvent> allEvents;
+    private int currentPage = 0; // zero-based
 
     public EventsGui(EventSMP plugin, Player viewer) {
         this.plugin = plugin;
         this.viewer = viewer;
-
-        FileConfiguration gui = plugin.getConfigManager().getGuiConfig();
-        String title = gui.getString("title", "&8Events");
-        this.inventory = Bukkit.createInventory(null, 54, ColorUtil.colorize(title));
-
-        buildGui();
+        this.allEvents = new ArrayList<>(plugin.getEventManager().getRegisteredEvents().values());
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     // -----------------------------------------------------------------------
-    //  BUILD
+    //  PUBLIC ENTRY POINT
     // -----------------------------------------------------------------------
 
-    private void buildGui() {
+    public void open() {
+        buildPage();
+        viewer.openInventory(inventory);
+        // After openInventory the server may wrap our inventory — track the live one
+        this.inventory = viewer.getOpenInventory().getTopInventory();
+    }
+
+    // -----------------------------------------------------------------------
+    //  PAGE BUILDING
+    // -----------------------------------------------------------------------
+
+    private int totalPages() {
+        return Math.max(1, (int) Math.ceil((double) allEvents.size() / SLOTS_PER_PAGE));
+    }
+
+    private void buildPage() {
         FileConfiguration gui = plugin.getConfigManager().getGuiConfig();
+        String rawTitle = gui.getString("title", "&8&l✦ &8Events ➠ Overview");
 
-        // 1. Apply filler-items (lowest priority)
-        applyFillerItems(gui);
+        // Create (or recreate) inventory
+        Inventory newInv = Bukkit.createInventory(null, 54, ColorUtil.colorize(rawTitle));
 
-        // 2. Place static-slots over fillers
-        applyStaticSlots(gui);
+        // 1. Filler layer
+        applyFillerItems(gui, newInv);
 
-        // 3. Place event items (highest priority, overwrites everything)
-        applyEventItems(gui);
+        // 2. Static slots (close button, etc.)
+        applyStaticSlots(gui, newInv);
+
+        // 3. Navigation buttons
+        applyNavigationButtons(gui, newInv);
+
+        // 4. Page-indicator item in slot 4
+        applyPageIndicator(newInv);
+
+        // 5. Event items for this page (empties filled with gray dye)
+        applyEventItems(gui, newInv);
+
+        this.inventory = newInv;
+    }
+
+    /** Refreshes the open inventory in-place (no close/reopen flicker). */
+    private void refreshPage() {
+        // Build into a temporary inventory, then push its contents into the
+        // already-open inventory so the viewer's reference never becomes stale.
+        Inventory live = viewer.getOpenInventory().getTopInventory();
+        buildPage();                          // this.inventory = temporary new inv
+        live.setContents(inventory.getContents());
+        this.inventory = live;               // always track the live object
     }
 
     // -----------------------------------------------------------------------
     //  FILLER ITEMS
     // -----------------------------------------------------------------------
 
-    /**
-     * Reads the filler-items list. Each entry has material/name/lore and a
-     * "slots" list that accepts individual numbers ("5") and ranges ("0-8").
-     * Entries are applied in order, so later entries overwrite earlier ones
-     * for overlapping slots.
-     */
-    private void applyFillerItems(FileConfiguration gui) {
+    private void applyFillerItems(FileConfiguration gui, Inventory inv) {
         List<Map<?, ?>> fillerList = gui.getMapList("filler-items");
         if (fillerList.isEmpty()) {
-            // Fallback: fill everything with gray glass
             ItemStack fallback = buildSimpleItem(Material.GRAY_STAINED_GLASS_PANE, " ", null);
-            for (int i = 0; i < 54; i++) inventory.setItem(i, fallback);
+            for (int i = 0; i < 54; i++) inv.setItem(i, fallback);
             return;
         }
-
         for (Map<?, ?> entry : fillerList) {
             String matName = getString(entry, "material", "GRAY_STAINED_GLASS_PANE").toUpperCase();
             String name    = getString(entry, "name", " ");
-
             @SuppressWarnings("unchecked")
             List<String> lore = entry.containsKey("lore") ? (List<String>) entry.get("lore") : null;
-
             Material material = parseMaterial(matName);
             ItemStack item = buildSimpleItem(material, name, lore);
-
-            // Parse the slots list
-            Object rawSlots = entry.get("slots");
-            Set<Integer> slots = parseSlotsList(rawSlots);
-
-            for (int slot : slots) {
-                if (slot >= 0 && slot < 54) {
-                    inventory.setItem(slot, item);
-                }
+            for (int slot : parseSlotsList(entry.get("slots"))) {
+                if (slot >= 0 && slot < 54) inv.setItem(slot, item);
             }
         }
-    }
-
-    /**
-     * Parses a YAML value that is a list of slot descriptors.
-     * Each element may be:
-     *   - An integer:          5
-     *   - A string integer:   "5"
-     *   - A range string:     "0-8"
-     */
-    private Set<Integer> parseSlotsList(Object rawSlots) {
-        Set<Integer> result = new LinkedHashSet<>();
-        if (!(rawSlots instanceof List<?> list)) return result;
-
-        for (Object element : list) {
-            String token = element.toString().trim();
-            if (token.contains("-")) {
-                // Range: "start-end"
-                String[] parts = token.split("-", 2);
-                try {
-                    int start = Integer.parseInt(parts[0].trim());
-                    int end   = Integer.parseInt(parts[1].trim());
-                    for (int i = Math.min(start, end); i <= Math.max(start, end); i++) {
-                        result.add(i);
-                    }
-                } catch (NumberFormatException e) {
-                    plugin.getLogger().warning("[EventsGui] Invalid slot range '" + token + "' in filler-items — skipping.");
-                }
-            } else {
-                // Single slot
-                try {
-                    result.add(Integer.parseInt(token));
-                } catch (NumberFormatException e) {
-                    plugin.getLogger().warning("[EventsGui] Invalid slot value '" + token + "' in filler-items — skipping.");
-                }
-            }
-        }
-        return result;
     }
 
     // -----------------------------------------------------------------------
     //  STATIC SLOTS
     // -----------------------------------------------------------------------
 
-    private void applyStaticSlots(FileConfiguration gui) {
+    private void applyStaticSlots(FileConfiguration gui, Inventory inv) {
         ConfigurationSection staticSection = gui.getConfigurationSection("static-slots");
         if (staticSection == null) return;
-
         for (String key : staticSection.getKeys(false)) {
             try {
                 int slot = Integer.parseInt(key);
                 if (slot < 0 || slot >= 54) continue;
+                // Don't overwrite nav slots — those are handled separately
+                if (slot == SLOT_PREV || slot == SLOT_NEXT) continue;
                 ConfigurationSection itemSection = staticSection.getConfigurationSection(key);
                 if (itemSection == null) continue;
-                ItemStack item = buildItemFromSection(itemSection);
-                inventory.setItem(slot, item);
-            } catch (NumberFormatException e) {
-                plugin.getLogger().warning("[EventsGui] Invalid static-slot key '" + key + "' (must be 0–53) — skipping.");
-            }
-        }
-
-        // Detect close button: first BARRIER in static-slots, fallback slot 49
-        closeButtonSlot = detectCloseButtonSlot(staticSection);
-    }
-
-    private int detectCloseButtonSlot(ConfigurationSection staticSection) {
-        for (String key : staticSection.getKeys(false)) {
-            try {
-                int slot = Integer.parseInt(key);
-                ConfigurationSection sec = staticSection.getConfigurationSection(key);
-                if (sec == null) continue;
-                if ("BARRIER".equalsIgnoreCase(sec.getString("material", ""))) return slot;
+                inv.setItem(slot, buildItemFromSection(itemSection));
             } catch (NumberFormatException ignored) {}
         }
-        return 49;
+    }
+
+    // -----------------------------------------------------------------------
+    //  NAVIGATION BUTTONS
+    // -----------------------------------------------------------------------
+
+    private void applyNavigationButtons(FileConfiguration gui, Inventory inv) {
+        boolean hasPrev = currentPage > 0;
+        boolean hasNext = currentPage < totalPages() - 1;
+
+        // Previous button
+        if (hasPrev) {
+            List<String> prevLore = gui.getStringList("nav-prev-lore");
+            if (prevLore.isEmpty()) prevLore = List.of("&7ᴄʟɪᴄᴋ ᴛᴏ ɢᴏ ᴛᴏ ᴛʜᴇ ᴘʀᴇᴠɪᴏᴜꜱ ᴘᴀɢᴇ.");
+            String prevName = gui.getString("nav-prev-name", "&e&l← ᴘʀᴇᴠɪᴏᴜꜱ");
+            String prevMat  = gui.getString("nav-prev-material", "ARROW").toUpperCase();
+            inv.setItem(SLOT_PREV, buildSimpleItem(parseMaterial(prevMat), prevName, prevLore));
+        } else {
+            // Show disabled / blank filler in that slot
+            inv.setItem(SLOT_PREV, buildSimpleItem(Material.GRAY_STAINED_GLASS_PANE, " ", null));
+        }
+
+        // Next button
+        if (hasNext) {
+            List<String> nextLore = gui.getStringList("nav-next-lore");
+            if (nextLore.isEmpty()) nextLore = List.of("&7ᴄʟɪᴄᴋ ᴛᴏ ɢᴏ ᴛᴏ ᴛʜᴇ ɴᴇxᴛ ᴘᴀɢᴇ.");
+            String nextName = gui.getString("nav-next-name", "&e&lɴᴇxᴛ →");
+            String nextMat  = gui.getString("nav-next-material", "ARROW").toUpperCase();
+            inv.setItem(SLOT_NEXT, buildSimpleItem(parseMaterial(nextMat), nextName, nextLore));
+        } else {
+            inv.setItem(SLOT_NEXT, buildSimpleItem(Material.GRAY_STAINED_GLASS_PANE, " ", null));
+        }
+    }
+
+    // -----------------------------------------------------------------------
+    //  PAGE INDICATOR
+    // -----------------------------------------------------------------------
+
+    private void applyPageIndicator(Inventory inv) {
+        if (totalPages() <= 1) return; // no indicator needed on a single page
+        FileConfiguration gui = plugin.getConfigManager().getGuiConfig();
+        String mat  = gui.getString("page-indicator-material", "BOOK").toUpperCase();
+        String name = gui.getString("page-indicator-name", "&7ᴘᴀɢᴇ &e{page} &7/ &e{total}");
+        name = name.replace("{page}", String.valueOf(currentPage + 1))
+                .replace("{total}", String.valueOf(totalPages()));
+        List<String> lore = new ArrayList<>(gui.getStringList("page-indicator-lore"));
+        if (lore.isEmpty()) lore = List.of("&8" + allEvents.size() + " events total");
+        inv.setItem(SLOT_INFO, buildSimpleItem(parseMaterial(mat), name, lore));
     }
 
     // -----------------------------------------------------------------------
     //  EVENT ITEMS
     // -----------------------------------------------------------------------
 
-    private void applyEventItems(FileConfiguration gui) {
-        List<Integer> eventSlots = gui.getIntegerList("event-slots");
-        if (eventSlots.isEmpty()) {
-            eventSlots = List.of(10,11,12,13,14,15,16,19,20,21,22,23,24,25,28,29,30,31,32,33,34);
-        }
-
-        Collection<SmpEvent> events = plugin.getEventManager().getRegisteredEvents().values();
+    private void applyEventItems(FileConfiguration gui, Inventory inv) {
         SmpEvent currentEvent = plugin.getEventManager().getCurrentEvent();
 
-        int slotIndex = 0;
-        for (SmpEvent event : events) {
-            if (slotIndex >= eventSlots.size()) break;
-            int slot = eventSlots.get(slotIndex++);
-            if (slot < 0 || slot >= 54) continue;
-            inventory.setItem(slot, buildEventItem(gui, event, currentEvent));
+        // Empty-slot filler — fully configurable from event-gui.yml
+        String emptyMat  = gui.getString("empty-slot-material", "GRAY_DYE").toUpperCase();
+        String emptyName = gui.getString("empty-slot-name", "&7&o&lɴᴏ ᴇᴠᴇɴᴛ");
+        List<String> emptyLore = gui.getStringList("empty-slot-lore");
+        ItemStack emptySlotItem = buildSimpleItem(
+                parseMaterial(emptyMat),
+                emptyName,
+                emptyLore.isEmpty() ? null : emptyLore
+        );
+
+        int startIndex = currentPage * SLOTS_PER_PAGE;
+
+        for (int i = 0; i < SLOTS_PER_PAGE; i++) {
+            int slot = EVENT_SLOTS.get(i);
+            int eventIndex = startIndex + i;
+
+            if (eventIndex < allEvents.size()) {
+                SmpEvent event = allEvents.get(eventIndex);
+                inv.setItem(slot, buildEventItem(gui, event, currentEvent));
+            } else {
+                // Not enough events to fill this slot — use gray dye filler
+                inv.setItem(slot, emptySlotItem);
+            }
         }
     }
 
@@ -206,14 +241,12 @@ public class EventsGui implements Listener {
         String name = section.getString("name", " ");
         List<String> lore = section.getStringList("lore");
         boolean glow = section.getBoolean("glow", false);
-
         ItemStack item = buildSimpleItem(material, name, lore.isEmpty() ? null : lore);
         if (glow) applyGlow(item);
         return item;
     }
 
     private ItemStack buildEventItem(FileConfiguration gui, SmpEvent event, SmpEvent current) {
-        // Icon
         String iconName = gui.getString("event-icons." + event.getId(), "PAPER").toUpperCase();
         Material icon = parseMaterial(iconName);
 
@@ -221,7 +254,6 @@ public class EventsGui implements Listener {
         String duration  = EventManager.formatDuration(event.getDuration());
         List<String> descriptionLines = event.getDescriptionLines();
 
-        // Build lore from template
         List<String> templateLines = gui.getStringList("event-lore-template");
         if (templateLines.isEmpty()) {
             templateLines = List.of(
@@ -236,33 +268,22 @@ public class EventsGui implements Listener {
         List<String> lore = new ArrayList<>();
         for (String line : templateLines) {
             if (line.contains("{description_lines}")) {
-                if (descriptionLines.isEmpty()) {
-                    lore.add("");
-                } else {
-                    lore.addAll(descriptionLines);
-                }
+                lore.addAll(descriptionLines.isEmpty() ? List.of("") : descriptionLines);
             } else {
                 lore.add(line.replace("{duration}", duration));
             }
         }
 
-        // Active badge
         if (isActive) {
             List<String> badge = gui.getStringList("active-event-badge");
             if (badge.isEmpty()) badge = List.of("", "&a▶ &a&lCurrently Active!");
             int insertAt = findLastSeparator(lore);
-            if (insertAt >= 0) {
-                lore.addAll(insertAt, badge);
-            } else {
-                lore.addAll(badge);
-            }
+            if (insertAt >= 0) lore.addAll(insertAt, badge);
+            else lore.addAll(badge);
         }
 
         ItemStack item = buildSimpleItem(icon, event.getDisplayName(), lore);
-
-        if (isActive && gui.getBoolean("active-event-glow", true)) {
-            applyGlow(item);
-        }
+        if (isActive && gui.getBoolean("active-event-glow", true)) applyGlow(item);
         return item;
     }
 
@@ -270,15 +291,12 @@ public class EventsGui implements Listener {
         ItemStack item = new ItemStack(material);
         ItemMeta meta = item.getItemMeta();
         if (meta == null) return item;
-
         meta.displayName(ColorUtil.colorize(name));
-
         if (lore != null && !lore.isEmpty()) {
             List<Component> components = new ArrayList<>();
             for (String line : lore) components.add(ColorUtil.colorize(line));
             meta.lore(components);
         }
-
         item.setItemMeta(meta);
         return item;
     }
@@ -293,47 +311,39 @@ public class EventsGui implements Listener {
     }
 
     // -----------------------------------------------------------------------
-    //  HELPERS
+    //  CLICK HANDLING
     // -----------------------------------------------------------------------
-
-    private Material parseMaterial(String name) {
-        try {
-            return Material.valueOf(name.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            plugin.getLogger().warning("[EventsGui] Unknown material '" + name + "', using STONE.");
-            return Material.STONE;
-        }
-    }
-
-    /** Returns the index of the last &m separator line in the list, or -1. */
-    private int findLastSeparator(List<String> lore) {
-        for (int i = lore.size() - 1; i >= 0; i--) {
-            String line = lore.get(i);
-            if (line.contains("&m") || line.contains("§m")) return i;
-        }
-        return -1;
-    }
-
-    /** Safe map key getter with a default value. */
-    private String getString(Map<?, ?> map, String key, String def) {
-        Object val = map.get(key);
-        return val != null ? val.toString() : def;
-    }
-
-    // -----------------------------------------------------------------------
-    //  EVENTS
-    // -----------------------------------------------------------------------
-
-    public void open() {
-        viewer.openInventory(inventory);
-    }
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if (!event.getInventory().equals(inventory)) return;
+        // Guard: only care about our viewer's open GUI
+        Inventory top = event.getView().getTopInventory();
+        if (!top.equals(inventory)) return;
+
+        // Cancel ALL clicks that touch the top inventory (including shift-clicks
+        // from the bottom inventory which have getClickedInventory() != top)
         event.setCancelled(true);
-        if (closeButtonSlot >= 0 && event.getSlot() == closeButtonSlot) {
+
+        // Ignore clicks that landed in the player's own bottom inventory
+        if (event.getClickedInventory() == null) return;
+        if (!event.getClickedInventory().equals(top)) return;
+
+        int slot = event.getSlot();
+
+        if (slot == SLOT_CLOSE) {
             viewer.closeInventory();
+            return;
+        }
+
+        if (slot == SLOT_PREV && currentPage > 0) {
+            currentPage--;
+            refreshPage();
+            return;
+        }
+
+        if (slot == SLOT_NEXT && currentPage < totalPages() - 1) {
+            currentPage++;
+            refreshPage();
         }
     }
 
@@ -342,5 +352,54 @@ public class EventsGui implements Listener {
         if (event.getInventory().equals(inventory)) {
             HandlerList.unregisterAll(this);
         }
+    }
+
+    // -----------------------------------------------------------------------
+    //  HELPERS
+    // -----------------------------------------------------------------------
+
+    private Set<Integer> parseSlotsList(Object rawSlots) {
+        Set<Integer> result = new LinkedHashSet<>();
+        if (!(rawSlots instanceof List<?> list)) return result;
+        for (Object element : list) {
+            String token = element.toString().trim();
+            if (token.contains("-")) {
+                String[] parts = token.split("-", 2);
+                try {
+                    int start = Integer.parseInt(parts[0].trim());
+                    int end   = Integer.parseInt(parts[1].trim());
+                    for (int i = Math.min(start, end); i <= Math.max(start, end); i++) result.add(i);
+                } catch (NumberFormatException e) {
+                    plugin.getLogger().warning("[EventsGui] Invalid slot range '" + token + "' — skipping.");
+                }
+            } else {
+                try { result.add(Integer.parseInt(token)); }
+                catch (NumberFormatException e) {
+                    plugin.getLogger().warning("[EventsGui] Invalid slot '" + token + "' — skipping.");
+                }
+            }
+        }
+        return result;
+    }
+
+    private Material parseMaterial(String name) {
+        try { return Material.valueOf(name.toUpperCase()); }
+        catch (IllegalArgumentException e) {
+            plugin.getLogger().warning("[EventsGui] Unknown material '" + name + "', using STONE.");
+            return Material.STONE;
+        }
+    }
+
+    private int findLastSeparator(List<String> lore) {
+        for (int i = lore.size() - 1; i >= 0; i--) {
+            String line = lore.get(i);
+            if (line.contains("&m") || line.contains("§m")) return i;
+        }
+        return -1;
+    }
+
+    private String getString(Map<?, ?> map, String key, String def) {
+        Object val = map.get(key);
+        return val != null ? val.toString() : def;
     }
 }
