@@ -1,0 +1,244 @@
+# EventSMP - Events Configuration
+
+events:
+
+  meteor_shower:
+    enabled: true
+    display-name: "&#FF6600&l☄ Meteor Shower"
+    short-description: "&7Meteors rain from the sky — dodge or burn!"
+    description:
+      - "&7☄ &fMeteors fall from the sky around players."
+      - "&7🔥 &fDirect hits deal damage and set you on fire."
+      - "&7💥 &fEach impact creates a burst of fiery particles."
+    duration: 300
+    weight: 10
+    start-sound: ENTITY_FIREWORK_ROCKET_BLAST
+    end-sound: ENTITY_FIREWORK_ROCKET_TWINKLE
+    meteor-interval-ticks: 40
+    meteor-damage: 4.0
+    meteor-fire-ticks: 40
+    meteors-per-wave: 3
+
+  ore_frenzy:
+    enabled: true
+    display-name: "&6&l⛏ Ore Frenzy"
+    short-description: "&7All ore drops are doubled — mine now!"
+    description:
+      - "&7⛏ &fAll ore drops are multiplied while active."
+      - "&7💎 &fFortune enchants stack on top of the bonus."
+      - "&7✨ &fParticles burst from every ore you mine."
+    duration: 300
+    weight: 10
+    start-sound: BLOCK_ANVIL_LAND
+    end-sound: BLOCK_ANVIL_PLACE
+    drop-multiplier: 2
+
+  tornado_trouble:
+    enabled: true
+    display-name: "&a&l🌪 Tornado Trouble"
+    short-description: "&7Sudden gusts randomly hurl players across the land!"
+    description:
+      - "&7🌪 &fRandom wind gusts push players in any direction."
+      - "&7💨 &fCloud particles appear when you get launched."
+      - "&7⚠ &fCan happen every 2–5 seconds, stay alert!"
+    duration: 300
+    weight: 10
+    start-sound: ENTITY_ELDER_GUARDIAN_CURSE
+    end-sound: ENTITY_EXPERIENCE_ORB_PICKUP
+    push-interval-min: 40
+    push-interval-max: 100
+    push-strength-min: 1.0
+    push-strength-max: 3.0
+
+  blood_moon:
+    enabled: true
+    display-name: "&4&l🌕 Blood Moon"
+    short-description: "&7The night turns red — hostile mobs hit harder!"
+    description:
+      - "&7🌕 &fOnly triggers at night."
+      - "&7⚔ &fAll hostile mobs deal increased damage."
+      - "&7🩸 &fBlood-red particles float around monsters."
+    duration: 480
+    weight: 8
+    start-sound: ENTITY_WITHER_SPAWN
+    end-sound: ENTITY_WITHER_DEATH
+    damage-multiplier: 1.5
+    only-at-night: true
+
+  gravity_glitch:
+    enabled: true
+    display-name: "&d&l🔮 Gravity Glitch"
+    short-description: "&7Gravity fluctuates — float up or get crushed down!"
+    description:
+      - "&7⬆ &fLow Gravity: slow falling + higher jumps."
+      - "&7⬇ &fHeavy Gravity: slowness + reduced jump height."
+      - "&7🔮 &fGravity shifts randomly every 20–40 seconds."
+    duration: 300
+    weight: 9
+    start-sound: ENTITY_ENDERMAN_TELEPORT
+    end-sound: ENTITY_ENDERMAN_TELEPORT
+    change-interval-min: 400
+    change-interval-max: 800
+
+  lightning_storm:
+    enabled: true
+    display-name: "&e&l⚡ Lightning Storm"
+    short-description: "&7Bolts strike randomly — never stand still!"
+    description:
+      - "&7⚡ &fLightning strikes hit randomly across the world."
+      - "&7🎯 &fStrikes occasionally land very close to players."
+      - "&7✨ &fElectric sparks burst at every impact site."
+    duration: 300
+    weight: 9
+    start-sound: ENTITY_LIGHTNING_BOLT_THUNDER
+    end-sound: ENTITY_LIGHTNING_BOLT_IMPACT
+    strike-interval-ticks: 60
+    strikes-per-wave: 2
+    player-proximity-chance: 0.3
+    player-proximity-range: 15
+
+  speed_surge:
+    enabled: true
+    display-name: "&b&l⚡ Speed Surge"
+    short-description: "&7Everyone gets Speed II — sprint like the wind!"
+    description:
+      - "&7⚡ &fAll players receive Speed II for the duration."
+      - "&7✨ &fElectric sparks trail behind sprinting players."
+    duration: 300
+    weight: 10
+    start-sound: ENTITY_PLAYER_LEVELUP
+    end-sound: ENTITY_EXPERIENCE_ORB_PICKUP
+    speed-amplifier: 1
+
+  freezing_winds:
+    enabled: true
+    display-name: "&f&l❄ Freezing Winds"
+    short-description: "&7Standing still will freeze you — keep moving!"
+    description:
+      - "&7❄ &fStanding still too long gives you Slowness."
+      - "&7🏃 &fWalking or jumping removes the chill."
+      - "&7❄ &fSnowflake particles blow through the air."
+    duration: 300
+    weight: 9
+    start-sound: WEATHER_RAIN
+    end-sound: WEATHER_RAIN_ABOVE
+    still-threshold-ticks: 60
+    slowness-amplifier: 1
+
+  creeper_panic:
+    enabled: true
+    display-name: "&2&l💥 Creeper Panic"
+    short-description: "&7Creepers are faster and angrier — watch your back!"
+    description:
+      - "&7💨 &fCreepers move much faster than normal."
+      - "&7💥 &fFuse time is shortened — less time to escape!"
+      - "&7🟢 &fGreen spark particles surround every Creeper."
+      - "&7ℹ &fExplosion power is slightly reduced."
+    duration: 300
+    weight: 8
+    start-sound: ENTITY_CREEPER_PRIMED
+    end-sound: ENTITY_CREEPER_DEATH
+    speed-amplifier: 2
+    explosion-power: 1.5
+    fuse-ticks: 20
+
+  xp_rain:
+    enabled: true
+    display-name: "&a&l✨ XP Rain"
+    short-description: "&7Experience orbs fall from the sky — collect them all!"
+    description:
+      - "&7✨ &fXP orbs rain down around every player."
+      - "&7⭐ &fSparkle particles precede each orb drop."
+    duration: 300
+    weight: 10
+    start-sound: ENTITY_EXPERIENCE_ORB_PICKUP
+    end-sound: ENTITY_PLAYER_LEVELUP
+    orb-interval-ticks: 40
+    orbs-per-player: 2
+    xp-amount: 3
+    drop-radius: 8
+
+  golden_touch:
+    enabled: true
+    display-name: "&6&l✦ Golden Touch"
+    short-description: "&7Slain mobs may drop bonus gold — fight for fortune!"
+    description:
+      - "&7✦ &fKilling mobs has a chance to drop extra gold."
+      - "&7💰 &fGold nuggets or ingots can appear on any kill."
+      - "&7✨ &fGold dust sparkles around all living mobs."
+    duration: 300
+    weight: 9
+    start-sound: BLOCK_AMETHYST_BLOCK_CHIME
+    end-sound: BLOCK_AMETHYST_BLOCK_FALL
+    gold-nugget-chance: 0.5     # 0.0–1.0 per kill
+    gold-ingot-chance: 0.15
+    nugget-min: 1
+    nugget-max: 4
+    ingot-min: 1
+    ingot-max: 2
+
+  healing_aura:
+    enabled: true
+    display-name: "&a&l❤ Healing Aura"
+    short-description: "&7A warm aura heals all players every 15 seconds!"
+    description:
+      - "&7❤ &fAll players regenerate 1 heart every 15 seconds."
+      - "&7💚 &fGreen heart particles appear on each heal."
+    duration: 300
+    weight: 9
+    start-sound: ENTITY_PLAYER_LEVELUP
+    end-sound: ENTITY_EXPERIENCE_ORB_PICKUP
+    heal-interval-ticks: 300    # 15 seconds
+    heal-amount: 2.0            # half-hearts (2 = 1 full heart)
+
+  toxic_wasteland:
+    enabled: true
+    display-name: "&2&l☠ Toxic Wasteland"
+    short-description: "&7The air turns poisonous — you'll feel it!"
+    description:
+      - "&7☠ &fPlayers occasionally receive Poison I."
+      - "&7🟢 &fGreen toxic particles cloud the air around you."
+      - "&7⚗ &fPoison lasts only 2 seconds per proc."
+    duration: 300
+    weight: 9
+    start-sound: ENTITY_WITCH_AMBIENT
+    end-sound: ENTITY_WITCH_DEATH
+    poison-interval-min: 100    # min ticks between poison procs
+    poison-interval-max: 200
+    poison-duration-ticks: 40   # 2 seconds
+
+  lucky_day:
+    enabled: true
+    display-name: "&e&l⭐ Lucky Day"
+    short-description: "&7Fortune smiles on you — lucky things happen randomly!"
+    description:
+      - "&7⛏ &fMining blocks may drop bonus items."
+      - "&7⚔ &fKilling mobs may drop extra loot."
+      - "&7✨ &fEnchanting may grant a random status effect."
+      - "&7🍀 &fHappy villager particles float around you."
+    duration: 300
+    weight: 10
+    start-sound: ENTITY_PLAYER_LEVELUP
+    end-sound: ENTITY_FIREWORK_ROCKET_TWINKLE
+    mine-bonus-chance: 0.25     # 0.0–1.0
+    mob-loot-chance: 0.30
+    enchant-effect-chance: 0.40
+    enchant-effect-min-ticks: 600   # 30s
+    enchant-effect-max-ticks: 1200  # 60s
+
+  earthquake:
+    enabled: true
+    display-name: "&8&l🌍 Earthquake"
+    short-description: "&7The ground shakes violently — hold on tight!"
+    description:
+      - "&7🌍 &fThe ground shakes every 20 seconds."
+      - "&7😵 &fPlayers receive brief Nausea + knockback."
+      - "&7💥 &fBlock-crack particles and rumble sounds play."
+      - "&7ℹ &fNo blocks are broken or moved."
+    duration: 300
+    weight: 8
+    start-sound: ENTITY_RAVAGER_ROAR
+    end-sound: ENTITY_RAVAGER_CELEBRATE
+    quake-interval-ticks: 400   # 20 seconds
+    nausea-duration-ticks: 60   # 3 seconds
+    knockback-strength: 0.4

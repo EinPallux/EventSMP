@@ -1,0 +1,28 @@
+name: EventSMP
+version: '${project.version}'
+main: com.pallux.eventsmp.EventSMP
+api-version: '1.21'
+description: Custom SMP Events Plugin
+authors: [ Pallux ]
+prefix: EventSMP
+
+commands:
+  esmp:
+    description: Main EventSMP command
+    usage: /esmp <reload|start|stop|events>
+    permission: esmp.use
+  events:
+    description: Opens the Events GUI
+    usage: /events
+    permission: esmp.player
+
+permissions:
+  esmp.admin:
+    description: Full admin access to EventSMP
+    default: op
+  esmp.player:
+    description: Player access to EventSMP
+    default: true
+  esmp.use:
+    description: Use /esmp command
+    default: true

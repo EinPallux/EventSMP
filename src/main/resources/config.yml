@@ -1,0 +1,26 @@
+# EventSMP Configuration File
+
+# Display mode for events: BOSSBAR or ACTIONBAR
+display-mode: BOSSBAR
+
+# Boss Bar Settings (only applies when display-mode: BOSSBAR)
+bossbar:
+  color: RED          # PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE
+  style: SOLID        # SOLID, SEGMENTED_6, SEGMENTED_10, SEGMENTED_12, SEGMENTED_20
+  progress: 1.0       # 0.0 to 1.0 (full bar)
+  show-progress: true # animate progress bar as event runs out
+
+# Disabled worlds - events will NOT trigger in these worlds
+disabled-worlds:
+  - world_the_end
+
+# Prefix for system messages (supports & and HEX #RRGGBB colors)
+plugin-prefix: "&8&lEVENTSMP &7➠ "
+
+# Auto-Event settings
+auto-events:
+  enabled: true
+  # Time between events in seconds
+  interval-between-events: 600
+  # Variation in seconds (± this value added randomly)
+  interval-variation: 120

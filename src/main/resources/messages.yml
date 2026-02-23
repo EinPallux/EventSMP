@@ -1,0 +1,67 @@
+# EventSMP - Messages Configuration
+# Supports & color codes AND HEX colors: &#RRGGBB or <#RRGGBB>
+
+messages:
+
+  # --- General ---
+  no-permission: "&cYou don't have permission to do that."
+  player-only: "&cOnly players can use this command."
+  reload-success: "&aPlugin configuration reloaded successfully."
+  unknown-event: "&cUnknown event: &e{event}&c. Check /esmp events for valid names."
+  event-already-active: "&cAn event is already active! Stop it first with &e/esmp stop&c."
+  no-event-active: "&cThere is no event currently active."
+  invalid-world: "&cEvents are disabled in this world."
+
+  # --- Event Start Broadcast ---
+  # Available placeholders: {event_name}  {description}  {duration}
+  # Each list entry is its own line in chat.
+  event-start-broadcast:
+    - "&8&m                              "
+    - " &6⚡ &6&lEVENT STARTING &8| &e{event_name}"
+    - " &7{description}"
+    - " &8⏱ &7Duration: &e{duration}"
+    - "&8&m                              "
+
+  # --- Event End Broadcast ---
+  # Available placeholders: {event_name}
+  event-end-broadcast:
+    - "&8&m                              "
+    - " &c✗ &c&lEVENT ENDED &8| &r{event_name}"
+    - " &7The event has come to an end."
+    - "&8&m                              "
+
+  event-start-admin: "&aStarted event: &e{event}"
+  event-stop-admin: "&aStopped event: &e{event}"
+
+  # --- BossBar / ActionBar ---
+  bossbar-active: "&7Current Event: {event_name}"
+  bossbar-none: "&7Current Event: &cNone"
+  actionbar-active: "&7Current Event: {event_name}"
+  actionbar-none: "&7Current Event: &cNone"
+
+  # --- Toggle Bar ---
+  togglebar-hidden: "&8[&6EventSMP&8] &7Event bar &chidden&7. Use &e/esmp togglebar &7to show it again."
+  togglebar-shown:  "&8[&6EventSMP&8] &7Event bar &ashown&7. Use &e/esmp togglebar &7to hide it."
+
+  # --- Usage ---
+  usage-esmp: "&cUsage: &e/esmp <reload|start <event>|stop|events|togglebar>"
+  usage-start: "&cUsage: &e/esmp start <event_name>"
+
+  # --- GUI ---
+  gui-title: "&8&l✦ SMP Events"
+  gui-no-event-active: "&7No event is currently active."
+  gui-current-event-lore: "&a▶ &a&lCurrently Active!"
+  gui-event-lore-separator: "&8&m--------------------"
+  gui-event-duration-label: "&8⏱ &7Duration: &e{duration}"
+  gui-close-button-name: "&c&l✗ Close"
+  gui-close-button-lore: "&7Click to close this menu."
+  gui-filler-name: " "
+
+  # --- Command Help ---
+  help-header: "\n&8&m========&r &6&lEventSMP Help &8&m========\n"
+  help-reload:    " &e/esmp reload &7- Reload plugin configs"
+  help-start:     " &e/esmp start <event> &7- Start an event"
+  help-stop:      " &e/esmp stop &7- Stop current event"
+  help-events:    " &e/esmp events &7- View all events"
+  help-togglebar: " &e/esmp togglebar &7- Toggle the event bar visibility"
+  help-footer: "&8&m==============================\n"
