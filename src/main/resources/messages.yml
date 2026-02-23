@@ -53,8 +53,8 @@ messages:
   gui-current-event-lore: "&a▶ &a&lCurrently Active!"
   gui-event-lore-separator: "&8&m--------------------"
   gui-event-duration-label: "&8⏱ &7Duration: &e{duration}"
-  gui-close-button-name: "&c&l✗ Close"
-  gui-close-button-lore: "&7Click to close this menu."
+  gui-close-button-name: "&c&l✗ ᴄʟᴏꜱᴇ"
+  gui-close-button-lore: "&7ᴄʟɪᴄᴋ ᴛᴏ ᴄʟᴏꜱᴇ ᴛʜɪꜱ ᴍᴇɴᴜ."
   gui-filler-name: " "
 
   # --- Command Help ---
