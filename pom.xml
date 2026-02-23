@@ -6,11 +6,11 @@
 
     <groupId>com.pallux</groupId>
     <artifactId>EventSMP</artifactId>
-    <version>1.0.0</version>
+    <version>1.0</version>
     <packaging>jar</packaging>
 
     <name>EventSMP</name>
-    <description>Custom SMP Events Plugin for Paper 1.21.1</description>
+    <description>Custom SMP Events for Paper/Spigot 1.21+</description>
 
     <properties>
         <java.version>21</java.version>

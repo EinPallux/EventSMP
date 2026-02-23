@@ -45,6 +45,13 @@ public final class EventSMP extends JavaPlugin {
         }
 
         getLogger().info("EventSMP has been enabled successfully!");
+        getLogger().info("This Plugin is in BETA state, please Report Bugs on Discord:");
+        getLogger().info("https://discord.com/invite/FwRtcAdsTC");
+        getLogger().info("============================================================");
+        getLogger().info("PLEASE NOTE: This plugin was made for Paper/Spigot 1.21+ it");
+        getLogger().info("may not work on other Platforms / Server Cores.");
+        getLogger().info("============================================================");
+
     }
 
     @Override
