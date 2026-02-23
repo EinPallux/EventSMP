@@ -47,16 +47,6 @@ messages:
   usage-esmp: "&cUsage: &e/esmp <reload|start <event>|stop|events|togglebar>"
   usage-start: "&cUsage: &e/esmp start <event_name>"
 
-  # --- GUI ---
-  gui-title: "&8&l✦ &8Events ➠ Overview"
-  gui-no-event-active: "&7No event is currently active."
-  gui-current-event-lore: "&a▶ &a&lCurrently Active!"
-  gui-event-lore-separator: "&8&m--------------------"
-  gui-event-duration-label: "&8⏱ &7Duration: &e{duration}"
-  gui-close-button-name: "&c&l✗ ᴄʟᴏꜱᴇ"
-  gui-close-button-lore: "&7ᴄʟɪᴄᴋ ᴛᴏ ᴄʟᴏꜱᴇ ᴛʜɪꜱ ᴍᴇɴᴜ."
-  gui-filler-name: " "
-
   # --- Command Help ---
   help-header: "\n&8&m========&r &6&lEventSMP Help &8&m========\n"
   help-reload:    " &e/esmp reload &7- Reload plugin configs"

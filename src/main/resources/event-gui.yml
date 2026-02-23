@@ -1,0 +1,151 @@
+# EventSMP - GUI Configuration
+# Full control over the Events GUI layout and appearance.
+#
+# INVENTORY LAYOUT (54 slots, 6 rows of 9):
+#   Slots are numbered 0–53, left to right, top to bottom.
+#   Row 1:  0   1   2   3   4   5   6   7   8
+#   Row 2:  9  10  11  12  13  14  15  16  17
+#   Row 3: 18  19  20  21  22  23  24  25  26
+#   Row 4: 27  28  29  30  31  32  33  34  35
+#   Row 5: 36  37  38  39  40  41  42  43  44
+#   Row 6: 45  46  47  48  49  50  51  52  53
+#
+# COLOR CODES: Use & codes (&a, &c, &l, etc.) or hex &#RRGGBB / <#RRGGBB>
+
+# -----------------------------------------------------------------------
+# TITLE shown at the top of the inventory
+# -----------------------------------------------------------------------
+title: "&8&l✦ &8Events ➠ Overview"
+
+# -----------------------------------------------------------------------
+# FILLER ITEMS
+# A list of filler item definitions. Each entry fills a set of slots with
+# the same item. You can define multiple entries with different materials.
+#
+# slots supports:
+#   - Individual slot numbers:  5
+#   - Ranges (inclusive):       0-8
+#   - Any mix of both
+#
+# Event items and static-slots always overwrite filler slots.
+# Use material AIR to leave specific slots empty.
+# -----------------------------------------------------------------------
+filler-items:
+  - material: GRAY_STAINED_GLASS_PANE
+    name: " "
+    slots:
+      - 0-9
+      - 10
+      - 17
+      - 18
+      - 26
+      - 27
+      - 35
+      - 36-44
+      - 45-48
+      - 50-53
+
+  - material: GRAY_DYE
+    name: "&7???"
+    slots:
+      - 29-34
+
+# -----------------------------------------------------------------------
+# STATIC SLOTS - fixed items always shown at specific positions.
+# Event items (from event-slots) overwrite any static item in the same
+# slot, so keep static items out of your event-slots positions.
+#
+# Each entry:
+#   material: MATERIAL_NAME
+#   name: "..."
+#   lore:             (optional)
+#     - "line 1"
+#   glow: true/false  (optional, adds enchant glow)
+# -----------------------------------------------------------------------
+static-slots:
+
+  49:
+    material: BARRIER
+    name: "&c&l✗ ᴄʟᴏꜱᴇ"
+    lore:
+      - "&7ᴄʟɪᴄᴋ ᴛᴏ ᴄʟᴏꜱᴇ ᴛʜɪꜱ ᴍᴇɴᴜ."
+
+# -----------------------------------------------------------------------
+# EVENT SLOTS - ordered list of slots where events are placed.
+# Events fill these slots in registration order.
+# -----------------------------------------------------------------------
+event-slots:
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 19
+  - 20
+  - 21
+  - 22
+  - 23
+  - 24
+  - 25
+  - 28
+  - 29
+  - 30
+  - 31
+  - 32
+  - 33
+  - 34
+
+# -----------------------------------------------------------------------
+# EVENT ITEM LORE TEMPLATE
+# Defines the lore for every event item in the GUI.
+#
+# Placeholders:
+#   {description_lines} - expands to all lines from events.yml description
+#   {duration}          - formatted duration, e.g. "5m" or "5m 30s"
+#
+# {description_lines} expands in-place: one line per description entry.
+# All other lines are shown as-is (with {duration} replaced where present).
+# -----------------------------------------------------------------------
+event-lore-template:
+  - "{description_lines}"
+  - ""
+  - "&8&l⏱ &7ᴅᴜʀᴀᴛɪᴏɴ: &e{duration}"
+
+# -----------------------------------------------------------------------
+# ACTIVE EVENT BADGE
+# Lines appended to an event item's lore when it is currently running.
+# Inserted before the last separator line, or at the end if none exists.
+# -----------------------------------------------------------------------
+active-event-badge:
+  - ""
+  - "&a&l▶ ᴄᴜʀʀᴇɴᴛʟʏ ᴀᴄᴛɪᴠᴇ"
+
+# -----------------------------------------------------------------------
+# ACTIVE EVENT GLOW
+# Adds an enchantment glow to the currently active event's item.
+# -----------------------------------------------------------------------
+active-event-glow: true
+
+# -----------------------------------------------------------------------
+# EVENT ICONS
+# Maps event IDs to their GUI item material.
+# Falls back to PAPER for any event not listed here.
+# -----------------------------------------------------------------------
+event-icons:
+  meteor_shower:   FIRE_CHARGE
+  ore_frenzy:      DIAMOND
+  tornado_trouble: FEATHER
+  blood_moon:      REDSTONE
+  gravity_glitch:  END_CRYSTAL
+  lightning_storm: LIGHTNING_ROD
+  speed_surge:     SUGAR
+  freezing_winds:  SNOWBALL
+  creeper_panic:   CREEPER_HEAD
+  xp_rain:         EXPERIENCE_BOTTLE
+  golden_touch:    GOLD_INGOT
+  healing_aura:    GLISTERING_MELON_SLICE
+  toxic_wasteland: SLIME_BALL
+  lucky_day:       EMERALD
+  earthquake:      STONE

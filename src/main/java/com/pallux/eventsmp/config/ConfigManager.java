@@ -19,10 +19,12 @@ public class ConfigManager {
     private FileConfiguration config;
     private FileConfiguration eventsConfig;
     private FileConfiguration messagesConfig;
+    private FileConfiguration guiConfig;
 
     private File configFile;
     private File eventsFile;
     private File messagesFile;
+    private File guiFile;
 
     public ConfigManager(EventSMP plugin) {
         this.plugin = plugin;
@@ -32,6 +34,7 @@ public class ConfigManager {
         loadConfig();
         loadEventsConfig();
         loadMessagesConfig();
+        loadGuiConfig();
     }
 
     private void loadConfig() {
@@ -55,6 +58,13 @@ public class ConfigManager {
         applyDefaults(messagesConfig, "messages.yml");
     }
 
+    private void loadGuiConfig() {
+        guiFile = new File(plugin.getDataFolder(), "event-gui.yml");
+        if (!guiFile.exists()) plugin.saveResource("event-gui.yml", false);
+        guiConfig = YamlConfiguration.loadConfiguration(guiFile);
+        applyDefaults(guiConfig, "event-gui.yml");
+    }
+
     private void applyDefaults(FileConfiguration config, String resourcePath) {
         InputStream defStream = plugin.getResource(resourcePath);
         if (defStream != null) {
@@ -72,9 +82,10 @@ public class ConfigManager {
         }
     }
 
-    public FileConfiguration getConfig() { return config; }
-    public FileConfiguration getEventsConfig() { return eventsConfig; }
-    public FileConfiguration getMessagesConfig() { return messagesConfig; }
+    public FileConfiguration getConfig()        { return config; }
+    public FileConfiguration getEventsConfig()  { return eventsConfig; }
+    public FileConfiguration getMessagesConfig(){ return messagesConfig; }
+    public FileConfiguration getGuiConfig()     { return guiConfig; }
 
     /** Returns a single-line message string. */
     public String getMessage(String key) {
