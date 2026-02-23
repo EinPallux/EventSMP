@@ -4,12 +4,14 @@ events:
 
   meteor_shower:
     enabled: true
-    display-name: "&#FF6600&l☄ Meteor Shower"
-    short-description: "&7Meteors rain from the sky — dodge or burn!"
+    display-name: "&#FF6600&l☄ ᴍᴇᴛᴇᴏʀ ꜱʜᴏᴡᴇʀ"
+    short-description: "&7ᴍᴇᴛᴇᴏʀꜱ ʀᴀɪɴ ꜰʀᴏᴍ ᴛʜᴇ ꜱᴋʏ — ᴅᴏᴅɢᴇ ᴏʀ ʙᴜʀɴ!"
     description:
-      - "&7☄ &fMeteors fall from the sky around players."
-      - "&7🔥 &fDirect hits deal damage and set you on fire."
-      - "&7💥 &fEach impact creates a burst of fiery particles."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fMeteors are raining from the Sky."
+      - "&7&l| &fThey deal damage but don't destroy."
     duration: 300
     weight: 10
     start-sound: ENTITY_FIREWORK_ROCKET_BLAST
@@ -21,12 +23,14 @@ events:
 
   ore_frenzy:
     enabled: true
-    display-name: "&6&l⛏ Ore Frenzy"
-    short-description: "&7All ore drops are doubled — mine now!"
+    display-name: "&6&l⛏ ᴏʀᴇ ꜰʀᴇɴᴢʏ"
+    short-description: "&7ᴀʟʟ ᴏʀᴇ ᴅʀᴏᴘꜱ ᴀʀᴇ ᴅᴏᴜʙʟᴇᴅ — ᴍɪɴᴇ ɴᴏᴡ!"
     description:
-      - "&7⛏ &fAll ore drops are multiplied while active."
-      - "&7💎 &fFortune enchants stack on top of the bonus."
-      - "&7✨ &fParticles burst from every ore you mine."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fAll Ore Drops are multiplicated."
+      - "&7&l| &fFortune stacks on top of this event."
     duration: 300
     weight: 10
     start-sound: BLOCK_ANVIL_LAND
@@ -35,12 +39,14 @@ events:
 
   tornado_trouble:
     enabled: true
-    display-name: "&a&l🌪 Tornado Trouble"
-    short-description: "&7Sudden gusts randomly hurl players across the land!"
+    display-name: "&a&l🌪 ᴛᴏʀɴᴀᴅᴏ ᴛʀᴏᴜʙʟᴇ"
+    short-description: "&7ꜱᴜᴅᴅᴇɴ ɢᴜꜱᴛꜱ ʀᴀɴᴅᴏᴍʟʏ ʜᴜʀʟ ᴘʟᴀʏᴇʀꜱ ᴀᴄʀᴏꜱꜱ ᴛʜᴇ ʟᴀɴᴅ!"
     description:
-      - "&7🌪 &fRandom wind gusts push players in any direction."
-      - "&7💨 &fCloud particles appear when you get launched."
-      - "&7⚠ &fCan happen every 2–5 seconds, stay alert!"
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fRandom bursts of Wind push you around."
+      - "&7&l| &fThis can happen every 2-5s."
     duration: 300
     weight: 10
     start-sound: ENTITY_ELDER_GUARDIAN_CURSE
@@ -52,12 +58,14 @@ events:
 
   blood_moon:
     enabled: true
-    display-name: "&4&l🌕 Blood Moon"
-    short-description: "&7The night turns red — hostile mobs hit harder!"
+    display-name: "&4&l🌕 ʙʟᴏᴏᴅ ᴍᴏᴏɴ"
+    short-description: "&7ᴛʜᴇ ɴɪɢʜᴛ ᴛᴜʀɴꜱ ʀᴇᴅ — ʜᴏꜱᴛɪʟᴇ ᴍᴏʙꜱ ʜɪᴛ ʜᴀʀᴅᴇʀ!"
     description:
-      - "&7🌕 &fOnly triggers at night."
-      - "&7⚔ &fAll hostile mobs deal increased damage."
-      - "&7🩸 &fBlood-red particles float around monsters."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fOnly happens at night."
+      - "&7&l| &fMonsters are stronger."
     duration: 480
     weight: 8
     start-sound: ENTITY_WITHER_SPAWN
@@ -67,12 +75,15 @@ events:
 
   gravity_glitch:
     enabled: true
-    display-name: "&d&l🔮 Gravity Glitch"
-    short-description: "&7Gravity fluctuates — float up or get crushed down!"
+    display-name: "&d&l🔮 ɢʀᴀᴠɪᴛʏ ɢʟɪᴛᴄʜ"
+    short-description: "&7ɢʀᴀᴠɪᴛʏ ꜰʟᴜᴄᴛᴜᴀᴛᴇꜱ — ꜰʟᴏᴀᴛ ᴜᴘ ᴏʀ ɢᴇᴛ ᴄʀᴜꜱʜᴇᴅ ᴅᴏᴡɴ!"
     description:
-      - "&7⬆ &fLow Gravity: slow falling + higher jumps."
-      - "&7⬇ &fHeavy Gravity: slowness + reduced jump height."
-      - "&7🔮 &fGravity shifts randomly every 20–40 seconds."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fLow Gravity: Slow Falling + Higher Jumps."
+      - "&7&l| &fHeavy Gravity: Slowness + Reduced Jump Height."
+      - "&7&l| &fGravity Shifts randomly happen every 20-40s."
     duration: 300
     weight: 9
     start-sound: ENTITY_ENDERMAN_TELEPORT
@@ -82,12 +93,14 @@ events:
 
   lightning_storm:
     enabled: true
-    display-name: "&e&l⚡ Lightning Storm"
-    short-description: "&7Bolts strike randomly — never stand still!"
+    display-name: "&e&l⚡ ʟɪɢʜᴛɴɪɴɢ ꜱᴛᴏʀᴍ"
+    short-description: "&7ʙᴏʟᴛꜱ ꜱᴛʀɪᴋᴇ ʀᴀɴᴅᴏᴍʟʏ — ɴᴇᴠᴇʀ ꜱᴛᴀɴᴅ ꜱᴛɪʟʟ!"
     description:
-      - "&7⚡ &fLightning strikes hit randomly across the world."
-      - "&7🎯 &fStrikes occasionally land very close to players."
-      - "&7✨ &fElectric sparks burst at every impact site."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fLightning Strikes randomly hit the area."
+      - "&7&l| &fThey won't start fire but deal damage."
     duration: 300
     weight: 9
     start-sound: ENTITY_LIGHTNING_BOLT_THUNDER
@@ -99,11 +112,13 @@ events:
 
   speed_surge:
     enabled: true
-    display-name: "&b&l⚡ Speed Surge"
-    short-description: "&7Everyone gets Speed II — sprint like the wind!"
+    display-name: "&b&l⚡ ꜱᴘᴇᴇᴅ ꜱᴜʀɢᴇ"
+    short-description: "&7ᴇᴠᴇʀʏᴏɴᴇ ɢᴇᴛꜱ ꜱᴘᴇᴇᴅ ɪɪ — ꜱᴘʀɪɴᴛ ʟɪᴋᴇ ᴛʜᴇ ᴡɪɴᴅ!"
     description:
-      - "&7⚡ &fAll players receive Speed II for the duration."
-      - "&7✨ &fElectric sparks trail behind sprinting players."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fAll Players gain Speed II while this Event."
     duration: 300
     weight: 10
     start-sound: ENTITY_PLAYER_LEVELUP
@@ -112,12 +127,14 @@ events:
 
   freezing_winds:
     enabled: true
-    display-name: "&f&l❄ Freezing Winds"
-    short-description: "&7Standing still will freeze you — keep moving!"
+    display-name: "&f&l❄ ꜰʀᴇᴇᴢɪɴɢ ᴡɪɴᴅꜱ"
+    short-description: "&7ꜱᴛᴀɴᴅɪɴɢ ꜱᴛɪʟʟ ᴡɪʟʟ ꜰʀᴇᴇᴢᴇ ʏᴏᴜ — ᴋᴇᴇᴘ ᴍᴏᴠɪɴɢ!"
     description:
-      - "&7❄ &fStanding still too long gives you Slowness."
-      - "&7🏃 &fWalking or jumping removes the chill."
-      - "&7❄ &fSnowflake particles blow through the air."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fStanding still freezes you gaining Slowness II."
+      - "&7&l| &fJumping or walking removes the Effect."
     duration: 300
     weight: 9
     start-sound: WEATHER_RAIN
@@ -127,13 +144,14 @@ events:
 
   creeper_panic:
     enabled: true
-    display-name: "&2&l💥 Creeper Panic"
-    short-description: "&7Creepers are faster and angrier — watch your back!"
+    display-name: "&2&l💥 ᴄʀᴇᴇᴘᴇʀ ᴘᴀɴɪᴄ"
+    short-description: "&7ᴄʀᴇᴇᴘᴇʀꜱ ᴀʀᴇ ꜰᴀꜱᴛᴇʀ ᴀɴᴅ ᴀɴɢʀɪᴇʀ — ᴡᴀᴛᴄʜ ʏᴏᴜʀ ʙᴀᴄᴋ!"
     description:
-      - "&7💨 &fCreepers move much faster than normal."
-      - "&7💥 &fFuse time is shortened — less time to escape!"
-      - "&7🟢 &fGreen spark particles surround every Creeper."
-      - "&7ℹ &fExplosion power is slightly reduced."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fCreepers are much faster than normal."
+      - "&7&l| &fFuse time is shortened, Explosion Power reduced."
     duration: 300
     weight: 8
     start-sound: ENTITY_CREEPER_PRIMED
@@ -144,12 +162,15 @@ events:
 
   xp_rain:
     enabled: true
-    display-name: "&a&l✨ XP Rain"
-    short-description: "&7Experience orbs fall from the sky — collect them all!"
+    display-name: "&a&l✨ xᴘ ʀᴀɪɴ"
+    short-description: "&7ᴇxᴘᴇʀɪᴇɴᴄᴇ ᴏʀʙꜱ ꜰᴀʟʟ ꜰʀᴏᴍ ᴛʜᴇ ꜱᴋʏ — ᴄᴏʟʟᴇᴄᴛ ᴛʜᴇᴍ ᴀʟʟ!"
     description:
-      - "&7✨ &fXP orbs rain down around every player."
-      - "&7⭐ &fSparkle particles precede each orb drop."
-    duration: 300
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fXP Orbs pour down from the Sky."
+      - "&7&l| &fGuess we skip the XP Farm today, huh?"
+    duration: 60
     weight: 10
     start-sound: ENTITY_EXPERIENCE_ORB_PICKUP
     end-sound: ENTITY_PLAYER_LEVELUP
@@ -160,12 +181,13 @@ events:
 
   golden_touch:
     enabled: true
-    display-name: "&6&l✦ Golden Touch"
-    short-description: "&7Slain mobs may drop bonus gold — fight for fortune!"
+    display-name: "&6&l✦ ɢᴏʟᴅᴇɴ ᴛᴏᴜᴄʜ"
+    short-description: "&7ꜱʟᴀɪɴ ᴍᴏʙꜱ ᴍᴀʏ ᴅʀᴏᴘ ʙᴏɴᴜꜱ ɢᴏʟᴅ — ꜰɪɢʜᴛ ꜰᴏʀ ꜰᴏʀᴛᴜɴᴇ!"
     description:
-      - "&7✦ &fKilling mobs has a chance to drop extra gold."
-      - "&7💰 &fGold nuggets or ingots can appear on any kill."
-      - "&7✨ &fGold dust sparkles around all living mobs."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fMobs can drop Gold Ingots or Nuggets."
     duration: 300
     weight: 9
     start-sound: BLOCK_AMETHYST_BLOCK_CHIME
@@ -179,11 +201,13 @@ events:
 
   healing_aura:
     enabled: true
-    display-name: "&a&l❤ Healing Aura"
-    short-description: "&7A warm aura heals all players every 15 seconds!"
+    display-name: "&a&l❤ ʜᴇᴀʟɪɴɢ ᴀᴜʀᴀ"
+    short-description: "&7ᴀ ᴡᴀʀᴍ ᴀᴜʀᴀ ʜᴇᴀʟꜱ ᴀʟʟ ᴘʟᴀʏᴇʀꜱ ᴇᴠᴇʀʏ 15 ꜱᴇᴄᴏɴᴅꜱ!"
     description:
-      - "&7❤ &fAll players regenerate 1 heart every 15 seconds."
-      - "&7💚 &fGreen heart particles appear on each heal."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fPlayers regenerate 1 Heart every 15s."
     duration: 300
     weight: 9
     start-sound: ENTITY_PLAYER_LEVELUP
@@ -193,12 +217,13 @@ events:
 
   toxic_wasteland:
     enabled: true
-    display-name: "&2&l☠ Toxic Wasteland"
-    short-description: "&7The air turns poisonous — you'll feel it!"
+    display-name: "&2&l☠ ᴛᴏxɪᴄ ᴡᴀꜱᴛᴇʟᴀɴᴅ"
+    short-description: "&7ᴛʜᴇ ᴀɪʀ ᴛᴜʀɴꜱ ᴘᴏɪꜱᴏɴᴏᴜꜱ — ʏᴏᴜ'ʟʟ ꜰᴇᴇʟ ɪᴛ!"
     description:
-      - "&7☠ &fPlayers occasionally receive Poison I."
-      - "&7🟢 &fGreen toxic particles cloud the air around you."
-      - "&7⚗ &fPoison lasts only 2 seconds per proc."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fPlayers can randomly get Poison I for 2s."
     duration: 300
     weight: 9
     start-sound: ENTITY_WITCH_AMBIENT
@@ -209,13 +234,16 @@ events:
 
   lucky_day:
     enabled: true
-    display-name: "&e&l⭐ Lucky Day"
-    short-description: "&7Fortune smiles on you — lucky things happen randomly!"
+    display-name: "&e&l⭐ ʟᴜᴄᴋʏ ᴅᴀʏ"
+    short-description: "&7ꜰᴏʀᴛᴜɴᴇ ꜱᴍɪʟᴇꜱ ᴏɴ ʏᴏᴜ — ʟᴜᴄᴋʏ ᴛʜɪɴɢꜱ ʜᴀᴘᴘᴇɴ ʀᴀɴᴅᴏᴍʟʏ!"
     description:
-      - "&7⛏ &fMining blocks may drop bonus items."
-      - "&7⚔ &fKilling mobs may drop extra loot."
-      - "&7✨ &fEnchanting may grant a random status effect."
-      - "&7🍀 &fHappy villager particles float around you."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fToday is your lucky day!"
+      - "&7&l| &fMining may drop Bonus Items."
+      - "&7&l| &fKilling Mobs may drop extra Loot."
+      - "&7&l| &fEnchanting may grant random Status Effects."
     duration: 300
     weight: 10
     start-sound: ENTITY_PLAYER_LEVELUP
@@ -228,13 +256,14 @@ events:
 
   earthquake:
     enabled: true
-    display-name: "&8&l🌍 Earthquake"
-    short-description: "&7The ground shakes violently — hold on tight!"
+    display-name: "&8&l🌍 ᴇᴀʀᴛʜQᴜᴀᴋᴇ"
+    short-description: "&7ᴛʜᴇ ɢʀᴏᴜɴᴅ ꜱʜᴀᴋᴇꜱ ᴠɪᴏʟᴇɴᴛʟʏ — ʜᴏʟᴅ ᴏɴ ᴛɪɢʜᴛ!"
     description:
-      - "&7🌍 &fThe ground shakes every 20 seconds."
-      - "&7😵 &fPlayers receive brief Nausea + knockback."
-      - "&7💥 &fBlock-crack particles and rumble sounds play."
-      - "&7ℹ &fNo blocks are broken or moved."
+      - "&8ᴡᴏʀʟᴅ ᴇᴠᴇɴᴛ"
+      - ""
+      - "&7&lᴇꜰꜰᴇᴄᴛꜱ:"
+      - "&7&l| &fThe ground shakes every 20s."
+      - "&7&l| &fPlayers gain short Nausea and Knockback."
     duration: 300
     weight: 8
     start-sound: ENTITY_RAVAGER_ROAR
